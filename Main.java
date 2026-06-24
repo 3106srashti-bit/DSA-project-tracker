@@ -17,7 +17,9 @@ public class Main {
             System.out.println("3. Search by topic");
             System.out.println("4. Show statistics");
             System.out.println("5. Search by difficulty");
-            System.out.println("6. Exit");
+            System.out.println("6. Sort by topic");
+            System.out.println("7. Sort by difficulty");
+            System.out.println("8. Exit");
             System.out.print("Choose an option: ");
 
             int choice = sc.nextInt();
@@ -133,6 +135,29 @@ public class Main {
                 }
 
             } else if (choice == 6) {
+                questions.sort((q1, q2) -> q1.topic.compareToIgnoreCase(q2.topic));
+                System.out.println("\n===== Questions Sorted by Topic =====");
+                for (Question question : questions) {
+                    System.out.println(
+                            question.name + " | " +
+                            question.topic + " | " +
+                            question.difficulty + " | " +
+                            question.platform);
+                }
+
+            } else if (choice == 7) {
+                questions.sort((q1, q2) -> q1.difficulty.compareToIgnoreCase(q2.difficulty));
+                System.out.println("\n===== Questions Sorted by Difficulty =====");
+                for (Question question : questions) {
+                    System.out.println(
+                            question.name + " | " +
+                            question.topic + " | " +
+                            question.difficulty + " | " +
+                            question.platform);
+                }
+
+
+            } else if (choice == 8) {
 
                 System.out.println(
                         "Exiting DSA Progress Tracker...");
@@ -141,9 +166,11 @@ public class Main {
             } else {
 
                 System.out.println(
-                        "Invalid choice! Please enter 1-6.");
+                        "Invalid choice! Please enter 1-8.");
             }
         }
+
+
 
         sc.close();
     }
