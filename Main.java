@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -46,7 +50,7 @@ public class Main {
                 topicCount.put(q.topic,
                         topicCount.getOrDefault(q.topic, 0) + 1);
 
-                System.out.println("✅ Question added successfully!");
+                System.out.println(" Question added successfully!");
 
             } else if (choice == 2) {
 
@@ -161,6 +165,30 @@ public class Main {
 
                 System.out.println(
                         "Exiting DSA Progress Tracker...");
+
+                        try {
+                            BufferedWriter writer =
+                            new BufferedWriter(new FileWriter("questions.txt"));
+
+                            for (Question question : questions) {
+                                writer.write(
+                                        question.name + " , " +
+                                        question.topic + " , " +
+                                        question.difficulty + " , " +
+                                        question.platform);
+                                writer.newLine();
+                            }
+
+                            writer.close();
+
+                            System.out.println("Questions saved successfully!");
+
+}
+catch(IOException e){
+    System.out.println("Error occurred while saving questions.");
+    e.printStackTrace();
+
+}
                 break;
 
             } else {
