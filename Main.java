@@ -1,17 +1,13 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-        ArrayList<Question> questions = new ArrayList<>();
-        HashMap<String, Integer> topicCount = new HashMap<>();
+        Tracker tracker = new Tracker();
+
+        tracker.loadQuestionsFromFile();
 
         while (true) {
 
@@ -31,174 +27,43 @@ public class Main {
 
             if (choice == 1) {
 
-                Question q = new Question();
-
-                System.out.print("Enter Question Name: ");
-                q.name = sc.nextLine();
-
-                System.out.print("Enter Topic: ");
-                q.topic = sc.nextLine();
-
-                System.out.print("Enter Difficulty: ");
-                q.difficulty = sc.nextLine();
-
-                System.out.print("Enter Platform: ");
-                q.platform = sc.nextLine();
-
-                questions.add(q);
-
-                topicCount.put(q.topic,
-                        topicCount.getOrDefault(q.topic, 0) + 1);
-
-                System.out.println(" Question added successfully!");
+                tracker.addQuestion(sc);
 
             } else if (choice == 2) {
 
-                if (questions.isEmpty()) {
-                    System.out.println("No questions added yet.");
-                } else {
-
-                    System.out.println("\n===== Stored Questions =====");
-
-                    for (Question question : questions) {
-                        System.out.println(
-                                question.name + " | " +
-                                question.topic + " | " +
-                                question.difficulty + " | " +
-                                question.platform);
-                    }
-                }
+                tracker.viewQuestions();
 
             } else if (choice == 3) {
 
-                System.out.print("Enter topic to search: ");
-                String searchTopic = sc.nextLine();
-
-                boolean found = false;
-
-                System.out.println("\n===== Search Results =====");
-
-                for (Question question : questions) {
-
-                    if (question.topic.equalsIgnoreCase(searchTopic)) {
-
-                        System.out.println(
-                                question.name + " | " +
-                                question.topic + " | " +
-                                question.difficulty + " | " +
-                                question.platform);
-
-                        found = true;
-                    }
-                }
-
-                if (!found) {
-                    System.out.println("No questions found for this topic.");
-                }
+                tracker.searchByTopic(sc);
 
             } else if (choice == 4) {
 
-                System.out.println("\n===== Statistics =====");
-
-                System.out.println("Total Questions: "
-                        + questions.size());
-
-                for (String topic : topicCount.keySet()) {
-                    System.out.println(
-                            topic + " : " +
-                            topicCount.get(topic));
-                }
+                tracker.viewStatistics();
 
             } else if (choice == 5) {
 
-                System.out.print("Enter difficulty: ");
-                String searchDifficulty = sc.nextLine();
-
-                boolean found = false;
-
-                System.out.println("\n===== Search Results =====");
-
-                for (Question question : questions) {
-
-                    if (question.difficulty.equalsIgnoreCase(
-                            searchDifficulty)) {
-
-                        System.out.println(
-                                question.name + " | " +
-                                question.topic + " | " +
-                                question.difficulty + " | " +
-                                question.platform);
-
-                        found = true;
-                    }
-                }
-
-                if (!found) {
-                    System.out.println(
-                            "No questions found for this difficulty.");
-                }
+                tracker.searchByDifficulty(sc);
 
             } else if (choice == 6) {
-                questions.sort((q1, q2) -> q1.topic.compareToIgnoreCase(q2.topic));
-                System.out.println("\n===== Questions Sorted by Topic =====");
-                for (Question question : questions) {
-                    System.out.println(
-                            question.name + " | " +
-                            question.topic + " | " +
-                            question.difficulty + " | " +
-                            question.platform);
-                }
+
+                tracker.sortQuestionsByTopic();
 
             } else if (choice == 7) {
-                questions.sort((q1, q2) -> q1.difficulty.compareToIgnoreCase(q2.difficulty));
-                System.out.println("\n===== Questions Sorted by Difficulty =====");
-                for (Question question : questions) {
-                    System.out.println(
-                            question.name + " | " +
-                            question.topic + " | " +
-                            question.difficulty + " | " +
-                            question.platform);
-                }
 
+                tracker.sortQuestionsByDifficulty();
 
             } else if (choice == 8) {
 
-                System.out.println(
-                        "Exiting DSA Progress Tracker...");
-
-                        try {
-                            BufferedWriter writer =
-                            new BufferedWriter(new FileWriter("questions.txt"));
-
-                            for (Question question : questions) {
-                                writer.write(
-                                        question.name + " , " +
-                                        question.topic + " , " +
-                                        question.difficulty + " , " +
-                                        question.platform);
-                                writer.newLine();
-                            }
-
-                            writer.close();
-
-                            System.out.println("Questions saved successfully!");
-
-}
-catch(IOException e){
-    System.out.println("Error occurred while saving questions.");
-    e.printStackTrace();
-
-}
+                tracker.saveQuestionsToFile();
+                System.out.println("Exiting DSA Progress Tracker...");
                 break;
 
             } else {
 
-                System.out.println(
-                        "Invalid choice! Please enter 1-8.");
+                System.out.println("Invalid option. Please try again.");
             }
         }
-
-
 
         sc.close();
     }
