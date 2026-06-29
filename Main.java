@@ -7,7 +7,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Tracker tracker = new Tracker();
 
-        tracker.loadQuestionsFromFile();
+        tracker.loadQuestions();
 
         while (true) {
 
@@ -55,7 +55,7 @@ public class Main {
 
             } else if (choice == 8) {
 
-                tracker.saveQuestionsToFile();
+                tracker.saveQuestions();
                 System.out.println("Exiting DSA Progress Tracker...");
                 break;
 
