@@ -206,4 +206,92 @@ public class Tracker {
 
         }
     }
+      public void editQuestion(Scanner sc) {
+
+    System.out.print("Enter the name of the question you want to edit: ");
+    String questionName = sc.nextLine();
+
+    Question questionToEdit = null;
+
+    // Search for the question
+    for (Question q : questions) {
+        if (q.getName().equalsIgnoreCase(questionName)) {
+            questionToEdit = q;
+            break;
+        }
+    }
+
+    if (questionToEdit != null) {
+
+        System.out.println("Editing question: " + questionToEdit.getName());
+
+        int choice;
+        boolean updated = false;
+
+        do {
+            System.out.println("\n===== Edit Menu =====");
+            System.out.println("1. Edit  Question Name");
+            System.out.println("2. Edit Topic");
+            System.out.println("3. Edit Difficulty");
+            System.out.println("4. Edit Platform");
+            System.out.println("5. Exit Editing");
+            System.out.print("Choose an option: ");
+
+            choice = sc.nextInt();
+            sc.nextLine();
+
+            switch (choice) {
+
+                case 1:
+                    System.out.print("Enter new question name: ");
+                    String newQuestionName = sc.nextLine();
+                    questionToEdit.setName(newQuestionName);
+                    updated = true;
+                    System.out.println("Question name updated successfully!");
+                    break;
+
+                case 2:
+                    System.out.print("Enter new topic: ");
+                    String newTopic = sc.nextLine();
+                    questionToEdit.setTopic(newTopic);
+                    updated = true;
+                    System.out.println("Topic updated successfully!");
+                    break;    
+
+                case 3:
+                    System.out.print("Enter new difficulty: ");
+                    String newDifficulty = sc.nextLine();
+                    questionToEdit.setDifficulty(newDifficulty);
+                    updated = true;
+                    System.out.println("Difficulty updated successfully!");
+                    break;
+
+                case 4:
+                    System.out.print("Enter new platform: ");
+                    String newPlatform = sc.nextLine();
+                    questionToEdit.setPlatform(newPlatform);
+                    updated = true;
+                    System.out.println("Platform updated successfully!");
+                    break;
+
+                case 5:
+                    System.out.println("Exiting editing mode...");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+
+        } while (choice != 5);
+
+        if (updated) {
+            System.out.println("Question updated successfully!");
+        }
+
+    } else {
+
+        System.out.println("Question not found.");
+
+    }
+}
 }

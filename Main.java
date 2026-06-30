@@ -19,7 +19,8 @@ public class Main {
             System.out.println("5. Search by difficulty");
             System.out.println("6. Sort by topic");
             System.out.println("7. Sort by difficulty");
-            System.out.println("8. Exit");
+            System.out.println("8. Edit a Question");
+            System.out.println("9. Exit");
             System.out.print("Choose an option: ");
 
             int choice = sc.nextInt();
@@ -54,6 +55,10 @@ public class Main {
                 tracker.sortQuestionsByDifficulty();
 
             } else if (choice == 8) {
+
+                tracker.editQuestion(sc);
+
+            } else if (choice == 9) {
 
                 tracker.saveQuestions();
                 System.out.println("Exiting DSA Progress Tracker...");
