@@ -294,4 +294,27 @@ public class Tracker {
 
     }
 }
+public void deleteQuestion(Scanner sc) {
+
+    System.out.print("Enter question name to delete: ");
+    String name = sc.nextLine();
+
+    boolean found = false;
+
+    for (int i = 0; i < questions.size(); i++) {
+
+        if (questions.get(i).getName().equalsIgnoreCase(name)) {
+
+            questions.remove(i);
+            found = true;
+
+            System.out.println("Question deleted successfully!");
+            break;
+        }
+    }
+
+    if (!found) {
+        System.out.println("Question not found.");
+    }
+}
 }
